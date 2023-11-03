@@ -51,9 +51,7 @@ class PostListActivity : AppCompatActivity() {
                     // 없습니다
                 }
             }
-
             override fun onFailure(call: Call<AllPostResponse>, t: Throwable) {
-
             }
 
         })

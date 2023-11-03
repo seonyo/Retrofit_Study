@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofit_study.api.APIService
+import com.example.retrofit_study.api.AllPostResponse
 import com.example.retrofit_study.api.PostResponse
 import com.example.retrofit_study.api.StringResponse
 import org.w3c.dom.Text
@@ -43,11 +44,17 @@ class PostReadActivity : AppCompatActivity() {
         delete_btn.setOnClickListener {
             deletePost(id)
             finish()
+
             // 왜 this만 사용하면 안 되는가?
             // A. this가 액티비티가 아닌 익명클래스를 가리키기 때문이다. this가 콜백이므로 바깥의 this임을 알려주기 위해서
             Toast.makeText(this@PostReadActivity,"글이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
 
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showPosts()
     }
 
     fun getPost( id: Int) {
@@ -74,6 +81,33 @@ class PostReadActivity : AppCompatActivity() {
         })
     }
 
+    fun showPosts() {
+        val call = apiService.getPosts()
+        call.enqueue(object : Callback<AllPostResponse> {
+            @SuppressLint("WrongViewCast")
+            override fun onResponse(call: Call<AllPostResponse>, response: Response<AllPostResponse>) {
+                if ( response.isSuccessful) {
+                    val data : AllPostResponse? = response.body()
+                    data?.let {
+                        Log.d("mytag", it.result.toString())
+                        val layoutManager = LinearLayoutManager(this@PostReadActivity)
+                        val adapter = PostListAdapter(it.result)
+                        val recyclerView = findViewById<RecyclerView>(R.id.post_list)
+                        recyclerView.setHasFixedSize(false)
+                        recyclerView.layoutManager = layoutManager
+                        recyclerView.adapter = adapter
+                    }
+
+                } else {
+                    // 없습니다
+                }
+            }
+
+            override fun onFailure(call: Call<AllPostResponse>, t: Throwable) {
+
+            }
+        })
+    }
     fun deletePost(id: Int) {
         val call = apiService.deletePost(id)
         call.enqueue(object : Callback<StringResponse> {// 익명클래스므로 추상메서드 구현 필요
