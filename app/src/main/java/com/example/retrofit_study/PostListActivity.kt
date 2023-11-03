@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofit_study.Config.Companion.BASE_URL
 import com.example.retrofit_study.api.APIService
 import com.example.retrofit_study.api.AllPostResponse
-import com.example.retrofit_study.api.PostResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
