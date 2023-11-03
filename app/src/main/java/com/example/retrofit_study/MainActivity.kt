@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import com.example.retrofit_study.api.APIService
 import com.example.retrofit_study.api.AllPostResponse
-import com.example.retrofit_study.api.DeletePostResponse
 import com.example.retrofit_study.api.PostCreateRequest
 import com.example.retrofit_study.api.PostResponse
 import com.example.retrofit_study.api.StringResponse
@@ -34,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 //        getPost(5)
 //        deletePost(4)
 //        createPost()
-        modifyPost(2, mutableMapOf("title" to "hello (modified)", "author" to "world (modified)", "content" to "hello1"))
+        modifyPost(5, mutableMapOf("title" to "hello (modified)", "author" to "world (modified)", "content" to "hello1"))
     }
 
     fun modifyPost(id:Int, body:MutableMap<String, Any>) {

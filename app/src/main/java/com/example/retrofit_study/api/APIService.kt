@@ -38,7 +38,7 @@ interface APIService {
     @DELETE("/posts/{id}")
     fun deletePost(@Path("id") id: Int) : Call<StringResponse>
     
-    @PATCH("/posts{id}")
+    @PATCH("/posts/{id}")
     @JvmSuppressWildcards
     fun modifyPost(@Path("id") id: Int, @Body request: MutableMap<String, Any>) : Call<StringResponse>// 두번째에는 뭐든 들어갈 수 있다. 자바로 치면 object로 하는 게 좋다.
     // 그걸 코틀린에서는 Any라고 부름
