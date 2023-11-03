@@ -54,7 +54,7 @@ class PostReadActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        showPosts()
+        //showPosts()
     }
 
     fun getPost( id: Int) {

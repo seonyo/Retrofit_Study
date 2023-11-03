@@ -1,6 +1,7 @@
 package com.example.retrofit_study
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.retrofit_study.Config.Companion.BASE_URL
 import com.example.retrofit_study.api.APIService
 import com.example.retrofit_study.api.AllPostResponse
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -28,8 +30,16 @@ class PostListActivity : AppCompatActivity() {
 
         apiService = retrofit.create(APIService::class.java)// 아까 정의한 APIService 인터페이스를 만듦
         showPosts()
-    }
 
+        findViewById<FloatingActionButton>(R.id.post_write_btn).setOnClickListener {
+            val intent = Intent(this, PostWriteActivity::class.java)
+            startActivity(intent)
+        }
+    }
+    override fun onResume() {
+        super.onResume()
+        showPosts()
+    }
     fun showPosts() {
         val call = apiService.getPosts()
         call.enqueue(object : Callback<AllPostResponse> {
