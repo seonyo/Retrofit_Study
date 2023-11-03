@@ -34,7 +34,23 @@ class MainActivity : AppCompatActivity() {
 //        getPost(5)
 //        deletePost(4)
 //        createPost()
-        modifyPost(2, mapOf(...))
+        modifyPost(2, mutableMapOf("title" to "hello (modified)", "author" to "world (modified)", "content" to "hello1"))
+    }
+
+    fun modifyPost(id:Int, body:MutableMap<String, Any>) {
+        val call = apiService.modifyPost(id, body)
+        call.enqueue(object : Callback<StringResponse> {
+            override fun onResponse(
+                call: Call<StringResponse>,
+                response: Response<StringResponse>
+            ) {
+
+            }
+
+            override fun onFailure(call: Call<StringResponse>, t: Throwable) {
+            }
+
+        })
     }
 
     fun createPost() {
