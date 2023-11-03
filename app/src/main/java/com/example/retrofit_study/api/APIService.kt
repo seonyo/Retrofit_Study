@@ -5,6 +5,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 import java.util.Date
@@ -21,7 +22,7 @@ data class AllPostResponse(val result: List<Post>)
 data class PostResponse(val result: Post)
 data class PostCreateRequest(val title: String, val author: String, val content: String)
 data class StringResponse(val result: String)// result: ok
-data class DeletePostResponse(val id: Int)
+
 
 interface APIService {
     @GET("/posts")
@@ -37,4 +38,11 @@ interface APIService {
     // DELETE 요청 보내는 deletePost 메서드 정의
     @DELETE("/posts/{id}")
     fun deletePost(@Path("id") id: Int) : Call<StringResponse>
+    
+    @PATCH("/posts{id}")
+    @JvmSuppressWildcards
+    fun modifyPost(@Path("id") id: Int, @Body request: MutableMap<String, Any>)// 두번째에는 뭐든 들어갈 수 있다. 자바로 치면 object로 하는 게 좋다.
+    // 그걸 코틀린에서는 Any라고 부름
+    // 근데 Any때문에 코틀린 -> 자바 과정에서 문제 생김
+    // 그걸 JvmSuppressWildcards 어노테이션으로 막을 수 있다
 }

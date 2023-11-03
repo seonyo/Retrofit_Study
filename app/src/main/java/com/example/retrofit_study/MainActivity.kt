@@ -33,7 +33,8 @@ class MainActivity : AppCompatActivity() {
 //        getPosts()
 //        getPost(5)
 //        deletePost(4)
-        createPost()
+//        createPost()
+        modifyPost(2, mapOf(...))
     }
 
     fun createPost() {
