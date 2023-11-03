@@ -1,5 +1,6 @@
 package com.example.retrofit_study
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,12 @@ class PostListAdapter(val dataList: List<Post>) : RecyclerView.Adapter<PostListA
         val item = dataList[position]// 보여줄 항목
         val view = holder.view
         view.findViewById<TextView>(R.id.post_title).text = item.title// title 변경
+        view.setOnClickListener {
+            val intent = Intent(view.context, PostReadActivity::class.java)
+            // adapter :
+            intent.putExtra("id", dataList[holder.adapterPosition].id)// id 전달. 언제 호출될지 모르므로 꼭 이렇게 하기!
+            view.context.startActivity(intent)
+        }
     }
     // 수동
     override fun getItemViewType(position: Int) = R.layout.post_list_item// layout 리소스의 아이디 반환
